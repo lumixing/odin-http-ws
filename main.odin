@@ -6,6 +6,23 @@ import "http"
 main :: proc() {
 	req: http.Request
 	defer http.request_delete(&req, context.allocator)
+	req.method = .POST
+	req.url = "https://discord.com/api/webhooks/1273228426580590602/Y9F3jA8w6g0lC2ufcWTSSglkkIsAMHxb-aPEL1IkDsMj9ubwp-vgI6IQ4lylaH6f1hHr"
+	req.headers["Host"] = "discord.com"
+	body := `{"content":"hello, world! :D"}`
+	req.body = transmute([]u8)string(body)
+	req.headers["Content-Type"] = "application/json"
+	req.headers["Content-Length"] = fmt.tprint(len(body))
+
+	res: http.Response
+	defer http.response_delete(&res, context.allocator)
+	ok := http.client_send_request(&req, &res, context.allocator)
+	fmt.println(res)
+}
+
+main2 :: proc() {
+	req: http.Request
+	defer http.request_delete(&req, context.allocator)
 	req.method = .GET
 	req.url = "https://api.ipify.org"
 	req.headers["Host"] = "api.ipify.org"
@@ -13,10 +30,6 @@ main :: proc() {
 	res: http.Response
 	defer http.response_delete(&res, context.allocator)
 	ok := http.client_send_request(&req, &res, context.allocator)
-	fmt.println(string(res.body))
-
-	res2: http.Response
-	defer http.response_delete(&res2, context.allocator)
-	ok2 := http.client_send_request(&req, &res2, context.allocator)
-	fmt.println(string(res2.body))
+	//fmt.println(string(res.body))
+	fmt.println(res)
 }

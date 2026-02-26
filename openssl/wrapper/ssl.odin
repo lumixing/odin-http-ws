@@ -16,9 +16,12 @@ init :: proc(state: ^State) {
 }
 
 connect :: proc(state: ^State, socket: net.TCP_Socket, hostname: cstring) {
-	openssl.SSL_set_fd(state.ssll, i32(socket))
-	openssl.SSL_set_tlsext_host_name(state.ssll, hostname)
-	openssl.SSL_connect(state.ssll)
+	num := openssl.SSL_set_fd(state.ssll, i32(socket))
+	assert(num >= 0)
+	num = openssl.SSL_set_tlsext_host_name(state.ssll, hostname)
+	assert(num >= 0)
+	num = openssl.SSL_connect(state.ssll)
+	assert(num >= 0)
 }
 
 write :: proc(state: ^State, buf: []u8) -> int {
