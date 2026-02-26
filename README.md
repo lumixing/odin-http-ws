@@ -1,5 +1,5 @@
 ## odin-http-ws
-a simple http(1.1)/websocket client/server library. uses [laytan's openssl bindings](https://github.com/laytan/odin-http/tree/main/openssl) for secure connections.
+a simple http(1.1)/websocket client/server library for odin. uses [laytan's openssl bindings](https://github.com/laytan/odin-http/tree/main/openssl) for secure connections.
 
 > [!IMPORTANT]  
 > currently under development!
