@@ -3,8 +3,19 @@ package main
 
 import "core:fmt"
 import "http"
+import "ws"
 
 main :: proc() {
+	client: ws.Client
+	ws.connect(&client, "gateway.discord.gg")
+	for {
+		buf := ws.read(&client)
+		defer delete(buf)
+		fmt.println(string(buf))
+	}
+}
+
+main4 :: proc() {
 	req: http.Request
 	res: http.Response
 	url := `https://discord.com/api/webhooks/1273228426580590602/Y9F3jA8w6g0lC2ufcWTSSglkkIsAMHxb-aPEL1IkDsMj9ubwp-vgI6IQ4lylaH6f1hHr`

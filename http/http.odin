@@ -54,7 +54,7 @@ URL :: struct {
 
 // https://open.spotify.com/collection/tracks
 url_from_string :: proc(url_str: string) -> (url: URL) {
-	assert(strings.starts_with(url_str, "https://"))
+	//assert(strings.starts_with(url_str, "https://"))
 	url_str := url_str[len("https://"):]
 	idx := strings.index_rune(url_str, '/')
 	if idx != -1 {
