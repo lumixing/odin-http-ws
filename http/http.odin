@@ -1,8 +1,20 @@
 #+vet explicit-allocators
 package http
 
+import "base:runtime"
 import "core:fmt"
 import "core:strings"
+
+Allocator :: runtime.Allocator
+
+dbg :: proc(s: $T, ss := #caller_expression(s), loc := #caller_location) {
+	fmt.printfln("!! dbg @ %v\n%v = %q", loc, ss, s)
+}
+
+dbgstr :: proc(s: string, ss := #caller_expression(s), loc := #caller_location) {
+	fmt.printfln("!! dbgstr @ %v\n%v = %q", loc, ss, s)
+}
+
 Method :: enum {
 	GET,
 	POST,

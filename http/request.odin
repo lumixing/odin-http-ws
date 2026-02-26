@@ -1,7 +1,6 @@
 #+vet explicit-allocators
 package http
 
-import "base:runtime"
 import "core:strings"
 import "core:fmt"
 
@@ -12,12 +11,12 @@ Request :: struct {
 	body: []u8,
 }
 
-request_delete :: proc(req: ^Request, allocator: runtime.Allocator) {
+request_delete :: proc(req: ^Request, allocator: Allocator) {
 	delete(req.headers)
 	delete(req.body, allocator)
 }
 
-request_to_string :: proc(req: ^Request, allocator: runtime.Allocator) -> string {
+request_to_string :: proc(req: ^Request, allocator: Allocator) -> string {
 	sb: strings.Builder
 	strings.builder_init_none(&sb, allocator)
 

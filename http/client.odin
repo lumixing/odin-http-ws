@@ -3,27 +3,30 @@ package http
 
 import "core:strings"
 import "core:fmt"
-import "base:runtime"
 import "core:net"
 import ssl "../openssl/wrapper"
 
 client_send_request :: proc(
 	req: ^Request,
 	res: ^Response,
-	allocator: runtime.Allocator,
+	allocator: Allocator,
 ) -> (ok: bool) {
+	url := url_from_string(req.url)
+	// add necessary headers
+	req.headers["Host"] = url.host
+	headers_set_content_length(&req.headers, len(req.body), allocator)
+
 	state: ssl.State
 	ssl.init(&state)
 
-	url := url_from_string(req.url)
-	fmt.println(url)
-	socket, err := net.dial_tcp(fmt.tprintf("%s:443", url.host))
+	//fmt.println(url)
+	socket, err := net.dial_tcp(fmt.aprintf("%s:443", url.host, allocator = allocator))
 	assert(err == nil)
 
 	ssl.connect(&state, socket, strings.clone_to_cstring(url.host, allocator))
 
 	req_str := request_to_string(req, allocator)
-	fmt.println("===== built req", req_str, "\n=====")
+	//fmt.println("===== built req", req_str, "\n=====")
 	wrote := ssl.write(&state, transmute([]u8)req_str)
 	if wrote < 0 {
 		return
