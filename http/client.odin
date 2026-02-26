@@ -9,7 +9,7 @@ import ssl "../openssl/wrapper"
 client_send_request :: proc(
 	req: ^Request,
 	res: ^Response,
-	allocator: Allocator,
+	allocator := context.allocator,
 ) -> (ok: bool) {
 	url := url_from_string(req.url)
 	// add necessary headers

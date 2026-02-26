@@ -37,6 +37,6 @@ headers_set_content_type_custom :: proc(headers: ^Headers, content_type: string)
 //	headers_set_content_type_string,
 //}
 
-headers_set_content_length :: proc(headers: ^Headers, #any_int content_length: int, allocator: Allocator) {
+headers_set_content_length :: proc(headers: ^Headers, #any_int content_length: int, allocator := context.allocator) {
 	headers["Content-Length"] = fmt.aprintf("%d", content_length, allocator = allocator)
 }

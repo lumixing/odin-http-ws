@@ -11,12 +11,12 @@ Request :: struct {
 	body: []u8,
 }
 
-request_delete :: proc(req: ^Request, allocator: Allocator) {
+request_delete :: proc(req: ^Request, allocator := context.allocator) {
 	delete(req.headers)
 	delete(req.body, allocator)
 }
 
-request_to_string :: proc(req: ^Request, allocator: Allocator) -> string {
+request_to_string :: proc(req: ^Request, allocator := context.allocator) -> string {
 	sb: strings.Builder
 	strings.builder_init_none(&sb, allocator)
 

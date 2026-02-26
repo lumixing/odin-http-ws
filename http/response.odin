@@ -13,13 +13,13 @@ Response :: struct {
 	ok: bool,
 }
 
-response_delete :: proc(req: ^Response, allocator: Allocator) {
+response_delete :: proc(req: ^Response, allocator := context.allocator) {
 	delete(req.headers)
 	delete(req.body, allocator)
 }
 
 // todo: return ok
-response_from_string :: proc(res: ^Response, str: string, allocator: Allocator) {
+response_from_string :: proc(res: ^Response, str: string, allocator := context.allocator) {
 	SPACE :: len(" ")
 
 	first_newline_idx := strings.index(str, "\r\n")
