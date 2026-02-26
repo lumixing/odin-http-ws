@@ -6,7 +6,7 @@ import "core:fmt"
 import "core:net"
 import ssl "../openssl/wrapper"
 
-client_send_request :: proc(
+fetch :: proc(
 	req: ^Request,
 	res: ^Response,
 	allocator := context.allocator,
