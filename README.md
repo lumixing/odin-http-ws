@@ -35,6 +35,11 @@ main :: proc() {
   - [ ] all methods working
   - [ ] json support
   - [ ] complete memory management
+  - [ ] chunked responses
+  - [ ] no blocking
 - http server
 - ws client
+  - [ ] json support
+  - [ ] chunked responses
+  - [ ] no blocking
 - ws server
